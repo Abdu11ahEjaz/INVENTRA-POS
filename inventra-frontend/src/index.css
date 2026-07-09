@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────
+   THEME — CSS custom properties (Tailwind v4)
+   ───────────────────────────────────────────── */
+@theme inline {
+  --color-background:  var(--background);
+  --color-foreground:  var(--foreground);
+  --color-card:        var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover:     var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary:     var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary:   var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:       var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent:      var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border:      var(--border);
+  --color-input:       var(--input);
+  --color-ring:        var(--ring);
+  --color-chart-1:     var(--chart-1);
+  --color-chart-2:     var(--chart-2);
+  --color-chart-3:     var(--chart-3);
+  --color-chart-4:     var(--chart-4);
+  --color-chart-5:     var(--chart-5);
+  --color-success:     var(--success);
+  --color-warning:     var(--warning);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* Brand */
+  --primary:           oklch(0.55 0.22 264);
+  --primary-foreground: oklch(0.98 0.01 264);
+  --secondary:           oklch(0.96 0.01 264);
+  --secondary-foreground: oklch(0.25 0.05 264);
+  --accent:           oklch(0.93 0.04 264);
+  --accent-foreground: oklch(0.25 0.05 264);
+  --destructive:           oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.98 0.01 27);
+
+  /* Semantic */
+  --background:  oklch(0.98 0.005 264);
+  --foreground:  oklch(0.15 0.02 264);
+  --card:            oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.02 264);
+  --popover:            oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.02 264);
+  --muted:            oklch(0.96 0.01 264);
+  --muted-foreground: oklch(0.52 0.04 264);
+  --border: oklch(0.90 0.02 264);
+  --input:  oklch(0.90 0.02 264);
+  --ring:   oklch(0.55 0.22 264);
+
+  /* Status */
+  --success:           oklch(0.55 0.18 145);
+  --success-foreground: oklch(0.98 0.01 145);
+  --warning:           oklch(0.75 0.16 75);
+  --warning-foreground: oklch(0.15 0.04 75);
+
+  /* Charts */
+  --chart-1: oklch(0.55 0.22 264);
+  --chart-2: oklch(0.65 0.18 145);
+  --chart-3: oklch(0.72 0.18 55);
+  --chart-4: oklch(0.60 0.22 15);
+  --chart-5: oklch(0.62 0.20 300);
+
+  /* Radius */
+  --radius: 0.75rem;
+
+  /* Sidebar */
+  --sidebar:            oklch(0.10 0.02 264);
+  --sidebar-foreground: oklch(0.92 0.01 264);
+  --sidebar-border:     oklch(0.20 0.03 264);
+  --sidebar-accent:     oklch(0.55 0.22 264);
+  --sidebar-accent-foreground: oklch(0.98 0.01 264);
+  --sidebar-muted:      oklch(0.45 0.04 264);
+}
+
+@theme {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Shadows */
+  --shadow-soft: 0 2px 12px -2px oklch(0.55 0.22 264 / 0.10);
+  --shadow-glow: 0 0 24px -4px  oklch(0.55 0.22 264 / 0.30);
+
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up:   accordion-up   0.2s ease-out;
+  --animate-fade-in:        fade-in        0.3s ease-out;
+  --animate-slide-up:       slide-up       0.3s ease-out;
+  --animate-caret-blink:    caret-blink    1.25s ease-out infinite;
+}
+
+/* ─────────────────────────────────────────────
+   KEYFRAMES
+   ───────────────────────────────────────────── */
+@keyframes accordion-down {
+  from { height: 0; opacity: 0; }
+  to   { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to   { height: 0; opacity: 0; }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes caret-blink {
+  0%, 70%, 100% { opacity: 1; }
+  20%, 50%      { opacity: 0; }
+}
+
+/* ─────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  line-height: 1.6;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--color-border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-muted-foreground); }
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* ─────────────────────────────────────────────
+   UTILITY CLASSES used in components
+   ───────────────────────────────────────────── */
+
+/* Gradient primary button fill */
+.gradient-primary {
+  background: linear-gradient(135deg,
+    oklch(0.55 0.22 264),
+    oklch(0.50 0.24 290));
+  color: var(--color-primary-foreground);
+  border: none;
+}
+.gradient-primary:hover {
+  background: linear-gradient(135deg,
+    oklch(0.50 0.22 264),
+    oklch(0.45 0.24 290));
+}
+
+/* Soft card shadow */
+.shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+/* Glow effect */
+.shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+/* Animated entrance */
+.animate-fade-in  { animation: var(--animate-fade-in); }
+.animate-slide-up { animation: var(--animate-slide-up); }
+
+/* Glass card */
+.glass {
+  background: oklch(1 0 0 / 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+}
+
+/* ─────────────────────────────────────────────
+   SHADCN / RADIX overrides
+   ───────────────────────────────────────────── */
+
+/* Make sure border-border resolves */
+.border-border   { border-color: var(--color-border); }
+.border-border\/60 { border-color: oklch(0.90 0.02 264 / 0.6); }
+
+/* Ring offset background */
+.ring-offset-background { --tw-ring-offset-color: var(--color-background); }
+
+/* Sidebar dark background */
+aside[class*="bg-gray-950"],
+aside[class*="bg-sidebar"] {
+  background-color: var(--color-sidebar);
+  border-color: var(--color-sidebar-border);
+}
+
+/* ─────────────────────────────────────────────
+   COMPONENT ENHANCEMENTS
+   ───────────────────────────────────────────── */
+
+/* Card hover lift */
+.group:hover .group-hover\:shadow-lg,
+[class*="rounded-2xl"]:hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Table row hover */
+tbody tr:hover {
+  background-color: oklch(0.96 0.01 264 / 0.6);
+  transition: background-color 0.15s ease;
+}
+
+/* Badge pill */
+[class*="rounded-full"][class*="border"] {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Input focus glow */
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px oklch(0.55 0.22 264 / 0.15);
+  transition: box-shadow 0.2s ease;
+}
+
+/* Button transitions */
+button {
+  transition: all 0.15s ease;
+}
+
+/* Recharts tooltip */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  border-radius: 12px !important;
+  border: 1px solid var(--color-border) !important;
+  background: var(--color-card) !important;
+  box-shadow: var(--shadow-soft) !important;
+}

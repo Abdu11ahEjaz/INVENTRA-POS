@@ -1,0 +1,19 @@
+{
+  "name": "inventra-erp",
+  "version": "1.0.0",
+  "description": "Inventra POS — POS + Inventory Management System",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently --names \"BACKEND,FRONTEND\" --prefix-colors \"cyan,magenta\" \"npm run dev --prefix inventra-backend\" \"npm run dev --prefix inventra-frontend\"",
+    "backend": "npm run dev --prefix inventra-backend",
+    "frontend": "npm run dev --prefix inventra-frontend",
+    "build": "npm run build --prefix inventra-frontend",
+    "install:all": "npm install --prefix inventra-backend && npm install --prefix inventra-frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "ua-parser-js": "^2.0.10"
+  }
+}
