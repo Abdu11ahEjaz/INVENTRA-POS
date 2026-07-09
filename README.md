@@ -1,4 +1,4 @@
-# Inventra POS — Complete Documentation
+# Inventra POS 
 
 > Full-stack MERN POS + Inventory Management System.
 > React 19 + Node.js + MongoDB + Electron.
