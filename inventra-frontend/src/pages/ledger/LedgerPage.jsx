@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import PageHeader from "@/components/common/pageHeader.jsx";
+import PageHeader from "@/components/common/PageHeader";
 import { useLedger, useAddLedgerEntry, useDeleteLedgerEntry } from "@/hooks/useLedger";
 import { useCurrency } from "@/hooks/useCurrency";
 import { toast } from "sonner";

@@ -100,7 +100,7 @@ export default function ResetPasswordPage() {
               </div>
               <h2 className="text-xl font-bold text-white">Password Reset!</h2>
               <p className="mt-2 text-sm text-slate-400">
-                Your password has been updated. Redirecting you now…
+                Your password has been updated. Redirecting you now...
               </p>
             </div>
           ) : (
@@ -183,7 +183,7 @@ export default function ResetPasswordPage() {
                   className="w-full rounded-xl py-3 text-sm font-semibold text-white transition-all disabled:opacity-60"
                   style={{ background: "linear-gradient(135deg, #38bdf8, #6366f1)", boxShadow: "0 4px 20px rgba(56,189,248,0.25)" }}
                 >
-                  {loading ? "Resetting…" : "Reset Password"}
+                  {loading ? "Resetting..." : "Reset Password"}
                 </button>
               </form>
             </>

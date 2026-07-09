@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import PageHeader from "@/components/common/pageHeader.jsx";
+import PageHeader from "@/components/common/PageHeader";
 import { cn } from "@/lib/utils";
 import { useProducts, useDeleteProduct } from "@/hooks/useProducts";
 import { useQueryClient } from "@tanstack/react-query";

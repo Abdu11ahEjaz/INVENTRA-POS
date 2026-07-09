@@ -93,7 +93,7 @@ export default function ForgotPasswordPage() {
                   className="w-full rounded-xl py-3 text-sm font-semibold text-white transition-all disabled:opacity-60"
                   style={{ background: "linear-gradient(135deg, #38bdf8, #6366f1)", boxShadow: "0 4px 20px rgba(56,189,248,0.25)" }}
                 >
-                  {loading ? "Sending…" : "Send Reset Link"}
+                  {loading ? "Sending..." : "Send Reset Link"}
                 </button>
               </form>
             </>

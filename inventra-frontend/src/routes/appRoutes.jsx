@@ -8,7 +8,7 @@ const SignInPage          = lazy(() => import("@/pages/auth/SignInPage"));
 const ForgotPasswordPage  = lazy(() => import("@/pages/auth/ForgotPasswordPage"));
 const ResetPasswordPage   = lazy(() => import("@/pages/auth/ResetPasswordPage"));
 const SuperAdminDashboard = lazy(() => import("@/pages/superadmin/SuperAdminDashboard"));
-const DashBoardPage       = lazy(() => import("@/pages/dashboard/DashBoardPage"));
+const DashBoardPage       = lazy(() => import("@/pages/dashboard/DashboardPage"));
 const InventoryPage       = lazy(() => import("@/pages/inventory/InventoryPage"));
 const SuppliersPage       = lazy(() => import("@/pages/suppliers/SuppliersPage"));
 const PurchasesPage       = lazy(() => import("@/pages/purchases/PurchasesPage"));

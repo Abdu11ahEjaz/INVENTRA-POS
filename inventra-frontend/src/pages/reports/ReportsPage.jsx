@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import PageHeader from "@/components/common/pageHeader";
+import PageHeader from "@/components/common/PageHeader";
 import { Download, Filter } from "lucide-react";
 import { useSalesTrend, useTopProducts, useInventoryValuation, useProfitLoss } from "@/hooks/useAnalytics";
 import { useCurrency } from "@/hooks/useCurrency";

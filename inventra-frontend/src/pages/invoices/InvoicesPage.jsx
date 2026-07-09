@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import PageHeader from "@/components/common/pageHeader.jsx";
+import PageHeader from "@/components/common/PageHeader";
 import InvoiceReceipt from "@/components/common/InvoiceReceipt";
 import { useInvoices, useAddInvoice, useUpdateInvoiceStatus } from "@/hooks/useInvoices";
 import { useProducts } from "@/hooks/useProducts";
