@@ -60,11 +60,17 @@ app.use("/api/sync",       syncRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
+app.get("/api/deploy-test", (req, res) => {
+  res.json({
+    message: "Backend updated",
+    version: "July-09-2026-1"
+  });
+});
+
 // ── Server Startup 
 const start = async () => {
   await connectDB();
   await seedSuperAdmin(); // auto-create SuperAdmin if not exists
-
   app.listen(PORT, () => {
     console.log(` Inventra POS backend running on http://localhost:${PORT}`);
     console.log(`   Environment : ${process.env.NODE_ENV || "development"}`);
