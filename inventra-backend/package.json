@@ -22,7 +22,8 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.6.3",
     "multer": "^2.1.1",
-    "nodemailer": "^8.0.10"
+    "nodemailer": "^8.0.10",
+    "ua-parser-js": "^1.0.39"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
