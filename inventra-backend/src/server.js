@@ -28,7 +28,7 @@ const PORT = process.env.PORT || 5000;
 
 // ── CORS Configuration 
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:4173", "app://."],
+  origin: ["http://localhost:5173", "https://inventra-pos.onrender.com", "app://."],
   credentials: true,
 }));
 
