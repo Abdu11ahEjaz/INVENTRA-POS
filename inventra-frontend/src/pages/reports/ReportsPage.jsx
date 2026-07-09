@@ -29,6 +29,10 @@ export default function ReportsPage() {
   const grossMargin   = totalRevenue > 0 ? ((grossProfit / totalRevenue) * 100).toFixed(1) : "0";
 
   const handleExport = () => {
+    if (!year) {
+      toast.error("Please select a year to export");
+      return;
+    }
     try {
       exportReports({
         totalRevenue,
@@ -39,6 +43,7 @@ export default function ReportsPage() {
       }, year, symbol);
       toast.success("Reports export ready for printing");
     } catch (err) {
+      console.error("[Reports Export Error]", err);
       toast.error("Failed to export reports");
     }
   };
@@ -48,15 +53,15 @@ export default function ReportsPage() {
       <PageHeader title="Reports & Analytics" description="FIFO-based P&L, inventory valuation, and sales analytics"
         actions={
           <div className="flex items-center gap-2">
-            <Select value={String(year)} onValueChange={(v) => setYear(Number(v))}>
-              <SelectTrigger className="h-9 w-32 rounded-full gap-1 border-border/60">
-                <Filter className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm">Year</span>
-                <SelectValue placeholder="2025" />
+            <Select value={year ? String(year) : ""} onValueChange={(v) => setYear(Number(v))}>
+              <SelectTrigger className="h-9 px-3 rounded-full gap-2 border-border/60 flex items-center">
+                <Filter className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                <span className="text-sm font-medium">Year</span>
+                <SelectValue placeholder={year ? String(year) : "Select year"} />
               </SelectTrigger>
               <SelectContent>{YEARS.map((y) => <SelectItem key={y} value={String(y)}>{y}</SelectItem>)}</SelectContent>
             </Select>
-            <Button onClick={handleExport} variant="outline" className="rounded-full"><Download className="mr-2 h-4 w-4" />Export</Button>
+            <Button onClick={handleExport} variant="outline" className="rounded-full h-9"><Download className="mr-2 h-4 w-4" />Export</Button>
           </div>
         }
       />
