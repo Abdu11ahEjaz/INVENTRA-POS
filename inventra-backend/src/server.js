@@ -41,6 +41,13 @@ app.get("/api/health", (req, res) =>
   res.json({ status: "ok", timestamp: new Date().toISOString() })
 );
 
+app.get("/api/deploy-test", (req, res) => {
+  res.json({
+    message: "Backend updated",
+    version: "July-09-2026-1"
+  });
+});
+
 // ── Routes 
 app.use("/api/auth",       authRoutes);
 app.use("/api/users",      userRoutes);
@@ -60,12 +67,6 @@ app.use("/api/sync",       syncRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.get("/api/deploy-test", (req, res) => {
-  res.json({
-    message: "Backend updated",
-    version: "July-09-2026-1"
-  });
-});
 
 // ── Server Startup 
 const start = async () => {
