@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import StatCard from "@/components/dashboard/Statcard";
+import StatCard from "@/components/dashboard/StatCard";
 import { useCurrency } from "@/hooks/useCurrency";
 import { useDashboardStats, useSalesTrend, useTopProducts } from "@/hooks/useAnalytics";
 import { useInvoices } from "@/hooks/useInvoices";

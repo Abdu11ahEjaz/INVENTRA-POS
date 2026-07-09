@@ -27,7 +27,7 @@ export default function SignInPage() {
     setLoading(true);
     try {
       const user = await login(email.trim(), password);
-      // Redirect based on role � ROLE_HOME maps role ? path
+      // Redirect based on role - ROLE_HOME maps role to path
       const destination = ROLE_HOME[user.role] ?? "/";
       navigate(destination, { replace: true });
     } catch (err) {
@@ -58,7 +58,7 @@ export default function SignInPage() {
           style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
           <p className="text-[10px] text-slate-500 uppercase tracking-wider">Total Stock Value</p>
           <p className="mt-1 text-2xl font-bold text-white">$2.4M</p>
-          <p className="mt-1 text-xs text-emerald-400">? 12.4% this month</p>
+          <p className="mt-1 text-xs text-emerald-400">+12.4% this month</p>
         </div>
         <div className="pointer-events-none absolute right-16 top-56 w-44 rounded-2xl p-4 opacity-70"
           style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
@@ -75,7 +75,7 @@ export default function SignInPage() {
           </div>
           <div>
             <p className="text-base font-bold text-white">inventra POS</p>
-            <p className="text-[11px] text-slate-500">Inventory � Sales � Ledger</p>
+            <p className="text-[11px] text-slate-500">Inventory - Sales - Ledger</p>
           </div>
         </div>
 
@@ -89,7 +89,7 @@ export default function SignInPage() {
             in one place.
           </h1>
           <p className="mt-4 text-sm text-slate-400 leading-relaxed max-w-sm">
-            Track stock levels, manage sales & purchases, generate invoices, and monitor your financials � all from a single dashboard.
+            Track stock levels, manage sales & purchases, generate invoices, and monitor your financials - all from a single dashboard.
           </p>
           <div className="mt-8 space-y-3">
             {features.map(({ icon: Icon, label }) => (
@@ -104,7 +104,7 @@ export default function SignInPage() {
           </div>
         </div>
 
-        <p className="relative z-10 text-xs text-slate-600">� 2025 inventra POS � All rights reserved</p>
+        <p className="relative z-10 text-xs text-slate-600">Copyright 2025 inventra POS - All rights reserved</p>
       </div>
 
       {/* -- RIGHT PANEL -- */}
@@ -163,7 +163,7 @@ export default function SignInPage() {
                   <input
                     type={showPw ? "text" : "password"} required autoComplete="current-password"
                     value={password} onChange={(e) => setPassword(e.target.value)}
-                    placeholder="��������"
+                    placeholder="Enter your password"
                     className="w-full rounded-xl py-3 pl-10 pr-11 text-sm text-white placeholder-slate-600 outline-none transition"
                     style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
                     onFocus={(e) => (e.target.style.borderColor = "rgba(56,189,248,0.5)")}
@@ -192,7 +192,7 @@ export default function SignInPage() {
                   boxShadow: "0 4px 20px rgba(56,189,248,0.25)",
                 }}
               >
-                {loading ? "Signing in�" : "Sign In"}
+                {loading ? "Signing in..." : "Sign In"}
               </button>
             </form>
           </div>
