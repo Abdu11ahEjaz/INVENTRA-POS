@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: inventra-backend
+    runtime: node
+    buildCommand: "cd inventra-backend && npm install"
+    startCommand: "cd inventra-backend && npm start"
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+  - type: static
+    name: inventra-frontend
+    buildCommand: "cd inventra-frontend && npm install && npm run build"
+    staticPublicPath: dist
+    routes:
+      - path: /*
+        destination: /index.html

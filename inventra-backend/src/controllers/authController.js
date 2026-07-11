@@ -28,7 +28,8 @@ const parseUserAgent = (userAgent) => {
   const parser = new UAParser(userAgent);
   const result = parser.getResult();
   return {
-    browser: `${result.browser.name || "Unknown"} ${result.browser.version || ""}`.trim(),
+    browser:
+      `${result.browser.name || "Unknown"} ${result.browser.version || ""}`.trim(),
     os: `${result.os.name || "Unknown"} ${result.os.version || ""}`.trim(),
     device: result.device.type || "desktop",
   };
@@ -63,7 +64,9 @@ export const login = asyncHandler(async (req, res) => {
     throw new Error("Email and password are required");
   }
 
-  const user = await User.findOne({ email: email.toLowerCase().trim() }).select("+password");
+  const user = await User.findOne({ email: email.toLowerCase().trim() }).select(
+    "+password",
+  );
 
   if (!user) {
     res.status(401);
@@ -79,11 +82,16 @@ export const login = asyncHandler(async (req, res) => {
   // Check if user is active
   if (user.status !== "Active") {
     res.status(401);
-    throw new Error(`Account is ${user.status.toLowerCase()}. Please contact administrator.`);
+    throw new Error(
+      `Account is ${user.status.toLowerCase()}. Please contact administrator.`,
+    );
   }
 
   // Check if account is locked
-  if (user.accountLockedUntil && new Date(user.accountLockedUntil) > new Date()) {
+  if (
+    user.accountLockedUntil &&
+    new Date(user.accountLockedUntil) > new Date()
+  ) {
     res.status(401);
     throw new Error("Account is temporarily locked. Please try again later.");
   }
@@ -116,6 +124,12 @@ export const login = asyncHandler(async (req, res) => {
   user.lastLoginDevice = deviceInfo.browser;
   await user.save();
 
+  // Sign JWT
+  const token = signToken(user._id);
+
+  console.log("JWT_SECRET exists:", !!process.env.JWT_SECRET);
+  console.log("Generated token:", token);
+
   // Create session
   const session = await Session.create({
     user: user._id,
@@ -128,9 +142,6 @@ export const login = asyncHandler(async (req, res) => {
     loginTime: new Date(),
     expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
   });
-
-  // Sign JWT
-  const token = signToken(user._id);
 
   // Log successful login
   await logAudit({
@@ -163,7 +174,10 @@ export const getMe = asyncHandler(async (req, res) => {
 // ──────────────────────────────────────────────────────────────────
 export const logout = asyncHandler(async (req, res) => {
   // Deactivate all user sessions
-  await Session.updateMany({ user: req.user.id, isActive: true }, { isActive: false, logoutTime: new Date() });
+  await Session.updateMany(
+    { user: req.user.id, isActive: true },
+    { isActive: false, logoutTime: new Date() },
+  );
 
   res.json({ message: "Logged out successfully" });
 });
@@ -271,7 +285,10 @@ export const updateProfile = asyncHandler(async (req, res) => {
 
   if (email && email.trim()) {
     const newEmail = email.toLowerCase().trim();
-    const existingUser = await User.findOne({ email: newEmail, _id: { $ne: user._id } });
+    const existingUser = await User.findOne({
+      email: newEmail,
+      _id: { $ne: user._id },
+    });
     if (existingUser) {
       res.status(400);
       throw new Error("Email already in use");
@@ -324,7 +341,8 @@ export const updateProfileImage = asyncHandler(async (req, res) => {
 
   try {
     // Import cloudinary upload utility
-    const { uploadImageToCloudinary } = await import("../utils/cloudinaryUpload.js");
+    const { uploadImageToCloudinary } =
+      await import("../utils/cloudinaryUpload.js");
 
     const imageUrl = await uploadImageToCloudinary(req.file, "user_profiles");
 
