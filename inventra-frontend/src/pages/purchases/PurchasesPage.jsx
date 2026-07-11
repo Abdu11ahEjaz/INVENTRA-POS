@@ -149,7 +149,7 @@ export default function PurchasesPage() {
         </>}
       />
 
-      <div className="grid gap-4 sm:grid-cols-4">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {[
           { l: "Total POs",   v: purchases.length },
           { l: "Pending",     v: purchases.filter((p) => p.status === "Pending").length },

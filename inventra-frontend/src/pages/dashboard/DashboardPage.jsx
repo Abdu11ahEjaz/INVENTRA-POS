@@ -35,7 +35,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Stat cards */}
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Total Revenue"    value={formatCurrency(stats?.totalRevenue   || 0)} delta="+20%" trend="up"   Icon={TrendingUp} tint="blue"  />
         <StatCard label="Gross Profit"     value={formatCurrency(stats?.grossProfit    || 0)} delta="+15%" trend="up"   Icon={BarChart2}  tint="green" />
         <StatCard label="Total Expenses"   value={formatCurrency(stats?.totalExpenses  || 0)} delta="+8%"  trend="up"   Icon={Wallet}     tint="amber" />
@@ -109,7 +109,7 @@ export default function Dashboard() {
       </div>
 
       {/* Inventory value + P&L summary */}
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="border-border/60 p-5 shadow-soft">
           <p className="text-xs text-muted-foreground">Inventory Value</p>
           <p className="mt-2 text-2xl font-semibold">{formatCurrency(stats?.inventoryValue || 0)}</p>

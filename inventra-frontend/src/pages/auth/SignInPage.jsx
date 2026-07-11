@@ -56,9 +56,9 @@ export default function SignInPage() {
         {/* Floating stat cards */}
         <div className="pointer-events-none absolute right-8 top-24 w-52 rounded-2xl p-4 opacity-80"
           style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
-          <p className="text-[10px] text-slate-500 uppercase tracking-wider">Total Stock Value</p>
-          <p className="mt-1 text-2xl font-bold text-white">$2.4M</p>
-          <p className="mt-1 text-xs text-emerald-400">+12.4% this month</p>
+          <p className="text-[10px] text-slate-500 uppercase tracking-wider">Sample Stock Value</p>
+          <p className="mt-1 text-2xl font-bold text-white">2.4K units</p>
+          <p className="mt-1 text-xs text-emerald-400">In current inventory</p>
         </div>
         <div className="pointer-events-none absolute right-16 top-56 w-44 rounded-2xl p-4 opacity-70"
           style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>

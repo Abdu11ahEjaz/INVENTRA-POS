@@ -62,7 +62,7 @@ export default function ReportsPage() {
       />
 
       {/* P&L Summary */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {[
           { l: `Total Revenue (${symbol})`, v: formatCurrency(totalRevenue),  color: "text-foreground" },
           { l: `COGS (${symbol})`,          v: formatCurrency(totalCOGS),     color: "text-foreground" },

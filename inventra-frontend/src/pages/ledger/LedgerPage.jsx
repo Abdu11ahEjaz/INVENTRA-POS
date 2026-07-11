@@ -79,7 +79,7 @@ export default function LedgerPage() {
         </>}
       />
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="border-border/60 p-5 shadow-soft">
           <p className="text-xs text-muted-foreground">Total Debit ({symbol})</p>
           <p className="mt-2 text-2xl font-semibold">{formatCurrency(totalDebit)}</p>

@@ -19,7 +19,7 @@ export const CurrencyContext = React.createContext(null);
 
 export function CurrencyProvider({ children }) {
   const [currencyCode, setCurrencyCode] = React.useState(() => {
-    return localStorage.getItem("inventra_currency") || "USD";
+    return localStorage.getItem("inventra_currency") || "PKR";  // Changed from USD to PKR
   });
 
   const currency = CURRENCIES.find((c) => c.code === currencyCode) || CURRENCIES[0];

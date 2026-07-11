@@ -7,7 +7,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import PageHeader from "@/components/common/PageHeader";
 import { useInvoices } from "@/hooks/useInvoices";
 import { useCurrency } from "@/hooks/useCurrency";
-import { salesData } from "@/lib/mock-data";
 
 const getId = (obj) => String(obj?._id || obj?.id || "");
 
@@ -23,6 +22,15 @@ export default function SalesPage() {
   const weekRevenue   = paidInvoices.filter((i) => { const d = new Date(i.issued || i.createdAt); return (Date.now() - d.getTime()) < 7 * 86400000; }).reduce((s, i) => s + i.amount, 0);
   const monthRevenue  = paidInvoices.filter((i) => { const d = new Date(i.issued || i.createdAt); return d.getMonth() === new Date().getMonth() && d.getFullYear() === new Date().getFullYear(); }).reduce((s, i) => s + i.amount, 0);
 
+  // Build sales trend data from real invoices (grouped by month)
+  const trendMap = {};
+  paidInvoices.forEach((inv) => {
+    const date = new Date(inv.issued || inv.createdAt);
+    const month = date.toLocaleString("en-US", { month: "short" });
+    trendMap[month] = (trendMap[month] || 0) + inv.amount;
+  });
+  const salesTrend = Object.entries(trendMap).map(([month, sales]) => ({ month, sales }));
+
   return (
     <div className="space-y-6">
       <PageHeader title="Sales" description="Track orders, revenue and customer activity"
@@ -32,7 +40,7 @@ export default function SalesPage() {
         </>}
       />
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {[
           { l: "Today",      v: formatCurrency(todayRevenue) },
           { l: "This Week",  v: formatCurrency(weekRevenue) },
@@ -50,7 +58,7 @@ export default function SalesPage() {
         <h3 className="text-base font-semibold">Revenue Trend</h3>
         <div className="mt-4 h-[280px]">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={salesData}>
+            <AreaChart data={salesTrend.length > 0 ? salesTrend : [{ month: "No data", sales: 0 }]}>
               <defs>
                 <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="var(--color-chart-1)" stopOpacity={0.4} />
@@ -62,7 +70,7 @@ export default function SalesPage() {
               <YAxis tick={{ fontSize: 11, fill: "var(--color-muted-foreground)" }} axisLine={false} tickLine={false} />
               <Tooltip
                 contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", borderRadius: 12 }}
-                formatter={(value) => [formatCurrency(value), "Sales"]}
+                formatter={(value) => [formatCurrency(value), "Revenue"]}
               />
               <Area type="monotone" dataKey="sales" stroke="var(--color-chart-1)" strokeWidth={2.5} fill="url(#g1)" />
             </AreaChart>

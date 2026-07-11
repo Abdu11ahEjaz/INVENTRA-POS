@@ -171,10 +171,9 @@ export default function SuperAdminDashboard() {
       <div className="mx-auto max-w-6xl px-6 py-8">
 
         {/* Stats */}
-        <div className="mb-8 grid gap-4 sm:grid-cols-4">
+        <div className="mb-8 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.label} className="rounded-2xl p-5"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+            <div key={s.label} className="border-border/60 p-5 shadow-soft rounded-lg border bg-card">
               <p className="text-xs text-slate-500">{s.label}</p>
               <p className="mt-1 text-3xl font-bold" style={{ color: s.color }}>{s.value}</p>
             </div>
@@ -182,11 +181,9 @@ export default function SuperAdminDashboard() {
         </div>
 
         {/* Users table */}
-        <div className="rounded-2xl overflow-hidden"
-          style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+        <div className="border-border/60 p-5 shadow-soft rounded-lg border bg-card overflow-hidden">
 
-          <div className="flex items-center justify-between px-6 py-4"
-            style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="flex items-center justify-between px-0 py-0 -m-5 mb-5 p-5 border-b border-border/60">
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4 text-sky-400" />
               <h2 className="text-sm font-semibold text-white">User Management</h2>
@@ -272,8 +269,7 @@ export default function SuperAdminDashboard() {
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
           style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(4px)" }}>
-          <div className="w-full max-w-md rounded-2xl p-6"
-            style={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)" }}>
+          <div className="w-full max-w-md border-border/60 p-6 shadow-soft rounded-lg border bg-card">
 
             <div className="mb-5 flex items-center justify-between">
               <h3 className="text-base font-semibold text-white">
@@ -360,8 +356,7 @@ export default function SuperAdminDashboard() {
       {deleteId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
           style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(4px)" }}>
-          <div className="w-full max-w-sm rounded-2xl p-6 text-center"
-            style={{ background: "#0f172a", border: "1px solid rgba(239,68,68,0.2)" }}>
+          <div className="w-full max-w-sm border-border/60 p-6 text-center rounded-lg border bg-card">
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
               style={{ background: "rgba(239,68,68,0.1)" }}>
               <Trash2 className="h-5 w-5 text-red-400" />

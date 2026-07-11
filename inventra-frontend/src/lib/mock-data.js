@@ -6,10 +6,10 @@ export const currentUser = {
 };
 
 export const stats = [
-  { label: "Profit", value: "$9,458,798", delta: "+35%", trend: "up", icon: "trending" },
-  { label: "Invoice Due", value: "$48,988", delta: "+12%", trend: "up", icon: "file" },
-  { label: "Total Expenses", value: "$8,980,097", delta: "+8%", trend: "up", icon: "wallet" },
-  { label: "Payment Returns", value: "$78,458,798", delta: "-20%", trend: "down", icon: "refresh" },
+  { label: "Profit", value: 9458798, delta: "+35%", trend: "up", icon: "trending" },
+  { label: "Invoice Due", value: 48988, delta: "+12%", trend: "up", icon: "file" },
+  { label: "Total Expenses", value: 8980097, delta: "+8%", trend: "up", icon: "wallet" },
+  { label: "Payment Returns", value: 78458798, delta: "-20%", trend: "down", icon: "refresh" },
 ];
 
 export const salesData = Array.from({ length: 12 }, (_, i) => ({

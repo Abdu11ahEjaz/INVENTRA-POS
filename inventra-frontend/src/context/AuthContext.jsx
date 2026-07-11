@@ -107,12 +107,6 @@ export function AuthProvider({ children }) {
       return safeUser;
 
     } catch (err) {
-      // Offline fallback — only when truly no network
-      if (!navigator.onLine || err.code === "ERR_NETWORK") {
-        const safeUser = offlineLogin(email, password);
-        setUser(safeUser);
-        return safeUser;
-      }
       const msg = err.response?.data?.message || "Invalid email or password";
       throw new Error(msg);
     } finally {
@@ -156,22 +150,12 @@ export function AuthProvider({ children }) {
 }
 
 // ── Offline fallback users ────────────────────────────────────
-const OFFLINE_USERS = [
-  { id: "offline-1", fullName: "Super Admin",    email: "super@inventra.com",    password: "SuperAdmin@123", role: "SuperAdmin",  isActive: true },
-  { id: "offline-2", fullName: "Admin User",     email: "admin@inventra.com",    password: "Admin@1234",     role: "Admin",       isActive: true },
-  { id: "offline-3", fullName: "Sarah Manager",  email: "manager@inventra.com",  password: "Manager@123",    role: "Manager",     isActive: true },
-  { id: "offline-4", fullName: "John Sales",     email: "sales@inventra.com",    password: "Sales@1234",     role: "Sales",       isActive: true },
-  { id: "offline-5", fullName: "Ali Accountant", email: "accounts@inventra.com", password: "Accounts@123",   role: "Accountant",  isActive: true },
-];
+// DEPRECATED: Offline fallback is removed. Backend should handle authentication.
+// If offline support is needed in the future, use environment variables or secure storage.
+const OFFLINE_USERS = [];
 
 function offlineLogin(email, password) {
-  const found = OFFLINE_USERS.find(
-    (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password
-  );
-  if (!found) throw new Error("Invalid email or password");
-  const { password: _pw, ...safeUser } = found;
-  localStorage.setItem("inventra_user", JSON.stringify(safeUser));
-  return safeUser;
+  throw new Error("Offline login is no longer supported. Please ensure a network connection to authenticate.");
 }
 
 export const USERS_DB = OFFLINE_USERS;

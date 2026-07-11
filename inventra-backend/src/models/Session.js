@@ -8,13 +8,6 @@ const sessionSchema = new mongoose.Schema(
       required: true,
     },
 
-    token: {
-      type: String,
-      required: false,
-      select: false,
-      index: false,  // Explicitly disable index on token
-    },
-
     ipAddress: {
       type: String,
       required: true,
@@ -73,10 +66,5 @@ sessionSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 sessionSchema.index({ user: 1, isActive: 1 });
 
 const Session = mongoose.model("Session", sessionSchema);
-
-// Drop the problematic unique index on token if it exists
-Session.collection.dropIndex('token_1').catch(() => {
-  // Index doesn't exist, which is fine
-});
 
 export default Session;
