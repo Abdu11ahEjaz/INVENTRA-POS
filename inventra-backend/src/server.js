@@ -34,7 +34,7 @@ app.use(
       "https://inventra-pos.onrender.com",
       "https://inventra-pos.vercel.app",
       "app://.",
-    ],
+    ], 
     credentials: true,
   }),
 );

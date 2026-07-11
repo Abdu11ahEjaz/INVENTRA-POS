@@ -58,9 +58,12 @@ export const sendWelcomeEmail = async (toEmail, toName, loginUrl) => {
 };
 
 export const sendPasswordResetEmail = async (toEmail, toName, resetUrl) => {
+  // Check if email is configured
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn("[Email] Not configured — cannot send password reset email");
+    console.warn("[Debug] EMAIL_USER:", !!process.env.EMAIL_USER, "EMAIL_PASS:", !!process.env.EMAIL_PASS);
     throw new Error(
-      "Email not configured — set EMAIL_USER and EMAIL_PASS in .env"
+      "Email service not properly configured on server. Please contact administrator."
     );
   }
 
@@ -75,9 +78,12 @@ export const sendPasswordResetEmail = async (toEmail, toName, resetUrl) => {
       html,
     });
 
+    console.log("[Email] Password reset email sent to:", toEmail);
     return info;
   } catch (err) {
-    console.error("[Email] SMTP send failed:", err.message);
+    console.error("[Email] Password reset failed:", err.message);
+    console.error("[Email] Error code:", err.code);
+    console.error("[Email] Error details:", err);
     throw err;
   }
 };

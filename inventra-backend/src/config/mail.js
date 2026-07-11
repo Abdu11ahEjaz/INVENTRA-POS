@@ -6,7 +6,7 @@ import nodemailer from "nodemailer";
  * not at module import time (which is too early).
  */
 export function createTransporter() {
-  return nodemailer.createTransport({
+  const config = {
     host:   process.env.EMAIL_HOST || "smtp.gmail.com",
     port:   Number(process.env.EMAIL_PORT) || 587,
     secure: Number(process.env.EMAIL_PORT) === 465,
@@ -14,7 +14,17 @@ export function createTransporter() {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
-    connectionTimeout: 10000,
-    greetingTimeout:   10000,
+    connectionTimeout: 15000,
+    greetingTimeout:   15000,
+    socketTimeout:     15000,
+  };
+
+  console.log("[Email Config]", {
+    host: config.host,
+    port: config.port,
+    secure: config.secure,
+    userConfigured: !!config.auth.user,
   });
+
+  return nodemailer.createTransport(config);
 }
