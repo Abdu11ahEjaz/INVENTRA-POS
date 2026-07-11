@@ -173,7 +173,7 @@ const Sidebar = () => {
         </nav>
 
         {/* Settings footer - sticky at bottom */}
-        <div className="border-t border-white/10 px-4 py-4 flex-shrink-0">
+        <div className="border-t border-white/10 px-4 py-4 shrink-0">
           <Link
             to="/settings"
             onClick={() => setIsOpen(false)}

@@ -6,14 +6,14 @@ const seedSuperAdmin = async () => {
   const pass  = process.env.SUPER_ADMIN_PASSWORD;
 
   if (!email || !name || !pass) {
-    console.warn("⚠️ SuperAdmin env vars not set — skipping seed.");
+    console.warn(" SuperAdmin env vars not set — skipping seed.");
     return;
   }
 
   const exists = await User.findOne({ email: email.toLowerCase() });
 
   if (exists) {
-    console.log(`✅ SuperAdmin already exists: ${email}`);
+    console.log(` SuperAdmin already exists: ${email}`);
     return;
   }
 
