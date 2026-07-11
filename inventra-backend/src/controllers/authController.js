@@ -203,17 +203,15 @@ export const forgotPassword = asyncHandler(async (req, res) => {
   const resetToken = user.generateResetToken();
   await user.save();
 
-  try {
-    const resetUrl = `${process.env.FRONTEND_URL || "http://localhost:5173"}/reset-password/${resetToken}`;
-    await sendPasswordResetEmail(user.email, user.fullName, resetUrl);
-  } catch (err) {
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpire = undefined;
-    await user.save();
-    throw err;
-  }
+  // Send email asynchronously (non-blocking) — don't wait for it
+  const resetUrl = `${process.env.FRONTEND_URL || "http://localhost:5173"}/reset-password/${resetToken}`;
+  sendPasswordResetEmail(user.email, user.fullName, resetUrl).catch((err) => {
+    console.error("[Email] Failed to send password reset email:", err.message);
+    // Don't throw — let the frontend know email was *queued* even if it fails
+  });
 
-  res.json({ message: "Password reset email sent" });
+  // Respond immediately without waiting for email to actually send
+  res.json({ message: "Password reset link sent. Check your email and spam folder." });
 });
 
 // ──────────────────────────────────────────────────────────────────

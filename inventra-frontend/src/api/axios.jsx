@@ -9,7 +9,7 @@ import { getUserFriendlyError } from "@/utils/errorHandler";
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
   headers: { "Content-Type": "application/json" },
-  timeout: 15000,
+  timeout: 30000,  // Increased from 15s to 30s to handle slow backend responses
 });
 
 // Attach JWT token on every request
