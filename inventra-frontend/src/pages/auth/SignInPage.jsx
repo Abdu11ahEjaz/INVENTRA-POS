@@ -53,14 +53,14 @@ export default function SignInPage() {
         <div className="pointer-events-none absolute -bottom-20 left-1/4 h-72 w-72 rounded-full opacity-10"
           style={{ background: "radial-gradient(circle, #38bdf8, transparent 70%)" }} />
 
-        {/* Floating stat cards */}
-        <div className="pointer-events-none absolute right-8 top-24 w-52 rounded-2xl p-4 opacity-80"
+        {/* Floating stat cards - Hidden on screens < 1189px */}
+        <div className="pointer-events-none absolute right-8 top-24 w-52 rounded-2xl p-4 opacity-80 hidden xl:block"
           style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
           <p className="text-[10px] text-slate-500 uppercase tracking-wider">Sample Stock Value</p>
           <p className="mt-1 text-2xl font-bold text-white">2.4K units</p>
           <p className="mt-1 text-xs text-emerald-400">In current inventory</p>
         </div>
-        <div className="pointer-events-none absolute right-16 top-56 w-44 rounded-2xl p-4 opacity-70"
+        <div className="pointer-events-none absolute right-16 top-56 w-44 rounded-2xl p-4 opacity-70 hidden xl:block"
           style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
           <p className="text-[10px] text-slate-500 uppercase tracking-wider">Low Stock Items</p>
           <p className="mt-1 text-2xl font-bold text-amber-400">14</p>
