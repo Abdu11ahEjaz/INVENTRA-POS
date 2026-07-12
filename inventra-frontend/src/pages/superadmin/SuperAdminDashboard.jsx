@@ -12,11 +12,11 @@ import { toast } from "sonner";
 const ROLES = ["Admin", "Manager", "Accountant", "Sales"];
 
 const ROLE_COLORS = {
-  SuperAdmin: "bg-violet-500/20 text-violet-300 border-violet-500/30",
-  Admin:      "bg-sky-500/20 text-sky-300 border-sky-500/30",
-  Manager:    "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
-  Accountant: "bg-amber-500/20 text-amber-300 border-amber-500/30",
-  Sales:      "bg-rose-500/20 text-rose-300 border-rose-500/30",
+  SuperAdmin: "bg-violet-600/30 text-violet-200 border-violet-500/50",
+  Admin:      "bg-blue-600/30 text-blue-200 border-blue-500/50",
+  Manager:    "bg-emerald-600/30 text-emerald-200 border-emerald-500/50",
+  Accountant: "bg-amber-600/30 text-amber-200 border-amber-500/50",
+  Sales:      "bg-rose-600/30 text-rose-200 border-rose-500/50",
 };
 
 const emptyForm = { fullName: "", email: "", password: "", role: "Sales", isActive: true };
@@ -173,15 +173,24 @@ export default function SuperAdminDashboard() {
         {/* Stats */}
         <div className="mb-8 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.label} className="border-border/60 p-5 shadow-soft rounded-lg border bg-card">
-              <p className="text-xs text-slate-500">{s.label}</p>
-              <p className="mt-1 text-3xl font-bold" style={{ color: s.color }}>{s.value}</p>
+            <div key={s.label} className="p-5 rounded-lg border bg-card overflow-hidden transition hover:border-opacity-100"
+              style={{ 
+                borderColor: "rgba(255,255,255,0.08)",
+                background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))",
+                boxShadow: "0 4px 6px rgba(0,0,0,0.1)"
+              }}>
+              <p className="text-xs font-medium text-slate-500">{s.label}</p>
+              <p className="mt-2 text-3xl font-bold" style={{ color: s.color }}>{s.value}</p>
             </div>
           ))}
         </div>
 
         {/* Users table */}
-        <div className="border-border/60 p-5 shadow-soft rounded-lg border bg-card overflow-hidden">
+        <div className="p-6 rounded-lg border bg-card overflow-hidden"
+          style={{ 
+            borderColor: "rgba(255,255,255,0.08)",
+            background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))"
+          }}>
 
           <div className="flex items-center justify-between px-0 py-0 -m-5 mb-5 p-5 border-b border-border/60">
             <div className="flex items-center gap-2">
@@ -207,51 +216,52 @@ export default function SuperAdminDashboard() {
             ) : (
               <table className="w-full text-sm">
                 <thead>
-                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
                     {["Name", "Email", "Role", "Status", "Actions"].map((h) => (
-                      <th key={h} className="px-6 py-3 text-left text-[10px] font-semibold uppercase tracking-wider text-slate-500">{h}</th>
+                      <th key={h} className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-slate-400">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {users.map((u) => (
-                    <tr key={u._id || u.id} className="transition hover:bg-white/2"
+                    <tr key={u._id || u.id} className="transition hover:bg-white/3"
                       style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white">
-                            {u.fullName?.[0] || "?"}
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-bold text-white text-xs"
+                            style={{ background: `linear-gradient(135deg, #6366f1, #3b82f6)` }}>
+                            {u.fullName?.[0]?.toUpperCase() || "U"}
                           </div>
-                          <span className="font-medium text-white">{u.fullName}</span>
+                          <span className="font-medium text-white text-sm">{u.fullName || "No Name"}</span>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-slate-400 text-xs">{u.email}</td>
+                      <td className="px-6 py-4 text-slate-400 text-sm">{u.email}</td>
                       <td className="px-6 py-4">
-                        <span className={`rounded-full border px-2.5 py-0.5 text-[10px] font-semibold ${ROLE_COLORS[u.role] || "bg-slate-500/20 text-slate-300"}`}>
+                        <span className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold ${ROLE_COLORS[u.role] || "bg-slate-500/30 text-slate-200 border-slate-500/50"}`}>
                           {u.role}
                         </span>
                       </td>
                       <td className="px-6 py-4">
                         <button onClick={() => u.role !== "SuperAdmin" && toggleActive(u)}
                           disabled={u.role === "SuperAdmin"}
-                          className="flex items-center gap-1.5 text-xs transition disabled:opacity-40 disabled:cursor-not-allowed"
-                          style={{ color: u.isActive ? "#34d399" : "#f87171" }}>
+                          className="flex items-center gap-1.5 text-sm font-medium transition disabled:opacity-40 disabled:cursor-not-allowed"
+                          style={{ color: u.isActive ? "#10b981" : "#ef4444" }}>
                           {u.isActive
-                            ? <ToggleRight className="h-4 w-4" />
-                            : <ToggleLeft className="h-4 w-4" />}
-                          {u.isActive ? "Active" : "Inactive"}
+                            ? <ToggleRight className="h-5 w-5" />
+                            : <ToggleLeft className="h-5 w-5" />}
+                          <span>{u.isActive ? "Active" : "Inactive"}</span>
                         </button>
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
                           <button onClick={() => openEdit(u)}
-                            className="rounded-lg p-1.5 text-slate-500 hover:bg-white/5 hover:text-sky-400 transition">
-                            <Pencil className="h-3.5 w-3.5" />
+                            className="rounded-lg p-2 text-slate-500 hover:bg-blue-500/10 hover:text-blue-400 transition">
+                            <Pencil className="h-4 w-4" />
                           </button>
                           {u.role !== "SuperAdmin" && (
                             <button onClick={() => setDeleteId(u._id || u.id)}
-                              className="rounded-lg p-1.5 text-slate-500 hover:bg-white/5 hover:text-red-400 transition">
-                              <Trash2 className="h-3.5 w-3.5" />
+                              className="rounded-lg p-2 text-slate-500 hover:bg-red-500/10 hover:text-red-400 transition">
+                              <Trash2 className="h-4 w-4" />
                             </button>
                           )}
                         </div>
