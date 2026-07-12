@@ -74,7 +74,7 @@ export default function SignInPage() {
             <Sparkles className="h-5 w-5 text-white" />
           </div>
           <div>
-            <p className="text-base font-bold text-white">inventra POS</p>
+            <p className="text-base font-bold text-white">Inventra POS</p>
             <p className="text-[11px] text-slate-500">Inventory - Sales - Ledger</p>
           </div>
         </div>
@@ -104,7 +104,7 @@ export default function SignInPage() {
           </div>
         </div>
 
-        <p className="relative z-10 text-xs text-slate-600">Copyright 2025 inventra POS - All rights reserved</p>
+        <p className="relative z-10 text-xs text-slate-600">Copyright 2026 Inventra POS - All rights reserved</p>
       </div>
 
       {/* -- RIGHT PANEL -- */}
