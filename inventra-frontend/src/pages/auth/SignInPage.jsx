@@ -53,22 +53,8 @@ export default function SignInPage() {
         <div className="pointer-events-none absolute -bottom-20 left-1/4 h-72 w-72 rounded-full opacity-10"
           style={{ background: "radial-gradient(circle, #38bdf8, transparent 70%)" }} />
 
-        {/* Floating stat cards - Hidden on screens < 1189px */}
-        <div className="pointer-events-none absolute right-8 top-24 w-52 rounded-2xl p-4 opacity-80 hidden xl:block"
-          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
-          <p className="text-[10px] text-slate-500 uppercase tracking-wider">Sample Stock Value</p>
-          <p className="mt-1 text-2xl font-bold text-white">2.4K units</p>
-          <p className="mt-1 text-xs text-emerald-400">In current inventory</p>
-        </div>
-        <div className="pointer-events-none absolute right-16 top-56 w-44 rounded-2xl p-4 opacity-70 hidden xl:block"
-          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
-          <p className="text-[10px] text-slate-500 uppercase tracking-wider">Low Stock Items</p>
-          <p className="mt-1 text-2xl font-bold text-amber-400">14</p>
-          <p className="mt-1 text-xs text-slate-400">Needs reorder</p>
-        </div>
-
         {/* Logo */}
-        <div className="relative z-10 flex items-center gap-3">
+        <div className="relative z-10 flex items-center gap-3 mt-8">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl"
             style={{ background: "linear-gradient(135deg, #38bdf8, #6366f1)", boxShadow: "0 0 20px rgba(56,189,248,0.4)" }}>
             <Sparkles className="h-5 w-5 text-white" />
@@ -79,28 +65,47 @@ export default function SignInPage() {
           </div>
         </div>
 
-        {/* Headline */}
-        <div className="relative z-10">
-          <h1 className="text-4xl font-bold leading-tight text-white">
-            Manage your entire<br />
-            <span style={{ background: "linear-gradient(90deg, #38bdf8, #818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              inventory business
-            </span><br />
-            in one place.
-          </h1>
-          <p className="mt-4 text-sm text-slate-400 leading-relaxed max-w-sm">
+        {/* Content: Text on left, Stat boxes on right */}
+        <div className="relative z-10 mt-4 flex gap-8 items-start">
+          {/* Left: Headline + Description */}
+          <div className="flex-1">
+            <h1 className="text-4xl font-bold leading-tight text-white">
+              Manage your entire<br />
+              <span style={{ background: "linear-gradient(90deg, #38bdf8, #818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                inventory business
+              </span><br />
+              in one place.
+            </h1>
+            <p className="mt-4 text-sm text-slate-400 leading-relaxed max-w-sm">
             Track stock levels, manage sales & purchases, generate invoices, and monitor your financials - all from a single dashboard.
-          </p>
-          <div className="mt-8 space-y-3">
-            {features.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-3">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
-                  style={{ background: "rgba(56,189,248,0.12)", border: "1px solid rgba(56,189,248,0.2)" }}>
-                  <Icon className="h-3.5 w-3.5 text-sky-400" />
+            </p>
+            <div className="mt-8 space-y-3">
+              {features.map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-center gap-3">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
+                    style={{ background: "rgba(56,189,248,0.12)", border: "1px solid rgba(56,189,248,0.2)" }}>
+                    <Icon className="h-3.5 w-3.5 text-sky-400" />
+                  </div>
+                  <span className="text-sm text-slate-300">{label}</span>
                 </div>
-                <span className="text-sm text-slate-300">{label}</span>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          {/* Right: Stat boxes - Hidden on screens < 1280px */}
+          <div className="hidden xl:flex flex-col gap-4 shrink-0">
+            <div className="w-52 rounded-2xl p-4 opacity-80"
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
+              <p className="text-[10px] text-slate-500 uppercase tracking-wider">Sample Stock Value</p>
+              <p className="mt-1 text-2xl font-bold text-white">2.4K units</p>
+              <p className="mt-1 text-xs text-emerald-400">In current inventory</p>
+            </div>
+            <div className="w-52 rounded-2xl p-4 opacity-70"
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
+              <p className="text-[10px] text-slate-500 uppercase tracking-wider">Low Stock Items</p>
+              <p className="mt-1 text-2xl font-bold text-amber-400">14</p>
+              <p className="mt-1 text-xs text-slate-400">Needs reorder</p>
+            </div>
           </div>
         </div>
 
