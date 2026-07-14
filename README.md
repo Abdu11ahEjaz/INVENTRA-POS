@@ -256,7 +256,7 @@ Frontend redirects to dashboard
 **Products**
 - CRUD operations with variants (size, color)
 - SKU, category, pricing
-- Cloudinary image uploads
+- Cloudinary image uploads with automatic cleanup
 - Real-time stock status (In Stock, Low Stock, Out of Stock)
 - Batch tracking with FIFO deduction
 
@@ -502,6 +502,51 @@ Step 4: Manage Users
 
 ---
 
+## 🖼️ Image Management (Cloudinary)
+
+### Automatic Image Cleanup & Replacement
+
+All images (user profiles, products, inventory) are stored on Cloudinary with automatic cleanup:
+
+**✅ User Profile Images**
+- When a user updates their profile picture → old image auto-deleted from Cloudinary
+- When SuperAdmin updates a user's profile picture → old image auto-deleted
+- When a user account is deleted → profile image auto-deleted from Cloudinary
+- Cloudinary public_id tracked in database for reliable deletion
+
+**✅ Product Images**
+- When product image is updated → old image auto-deleted
+- When product is deleted → image auto-deleted from Cloudinary
+
+**✅ Inventory Images**
+- When inventory item image is updated → old image auto-deleted
+- When inventory item is deleted → image auto-deleted from Cloudinary
+
+### How It Works
+
+Each image is stored with both URL and Cloudinary `public_id`:
+1. When uploading a new image → check for existing image by public_id
+2. If old image exists → delete from Cloudinary
+3. Upload new image → store URL + public_id in database
+4. If deletion fails → continues anyway (doesn't block operations)
+
+**Benefits**:
+- ✅ No storage waste - old images automatically cleaned up
+- ✅ Cost savings - Cloudinary charges by image count
+- ✅ No orphaned images in storage
+- ✅ Consistent handling across entire application
+
+### Cloudinary Folder Structure
+
+```
+inventra_pos/
+├── user_profiles/          ← All user profile pictures
+├── products/               ← All product images
+└── general/                ← Other images
+```
+
+---
+
 ## API Endpoints
 
 **Base URL**: `http://localhost:5000/api`
@@ -512,10 +557,11 @@ Step 4: Manage Users
 |--------|----------|------|---------|
 | POST | `/auth/login` | ❌ | User login |
 | GET | `/auth/me` | ✅ | Current user |
+| POST | `/auth/logout` | ✅ | User logout |
 | POST | `/auth/forgot-password` | ❌ | Request password reset |
 | POST | `/auth/reset-password/:token` | ❌ | Reset password |
-| PUT | `/auth/profile` | ✅ | Update profile |
-| POST | `/auth/profile-image` | ✅ | Upload profile picture |
+| PATCH | `/auth/profile` | ✅ | Update profile (name, email, phone) |
+| PATCH | `/auth/profile-image` | ✅ | Upload/update profile picture (auto-deletes old) |
 
 ### Products (Inventory)
 
@@ -586,9 +632,13 @@ Step 4: Manage Users
 | Method | Endpoint | Auth | Purpose |
 |--------|----------|------|---------|
 | GET | `/users` | ✅ | List all users (SuperAdmin) |
-| POST | `/users` | ✅ | Create user (SuperAdmin) |
-| PUT | `/users/:id` | ✅ | Update user (SuperAdmin) |
-| DELETE | `/users/:id` | ✅ | Delete user (SuperAdmin) |
+| GET | `/users/:id` | ✅ | Get user details (SuperAdmin) |
+| POST | `/users` | ✅ | Create user with optional profile image (SuperAdmin) |
+| PUT | `/users/:id` | ✅ | Update user & profile image (SuperAdmin, auto-deletes old) |
+| PATCH | `/users/:id/status` | ✅ | Change user status (SuperAdmin) |
+| POST | `/users/:id/reset-password` | ✅ | Reset user password (SuperAdmin) |
+| POST | `/users/:id/unlock` | ✅ | Unlock user account (SuperAdmin) |
+| DELETE | `/users/:id` | ✅ | Delete user (SuperAdmin, auto-deletes profile image) |
 
 ---
 
@@ -663,5 +713,13 @@ VITE_API_URL=http://localhost:5000/api
 
 ---
 
-**Version**: 1.0.0  
-**Last Updated**: July 11, 2026
+**Version**: 1.1.0  
+**Last Updated**: July 14, 2026
+
+### Latest Changes (v1.1.0)
+- ✅ Automatic Cloudinary image cleanup for user profile pictures
+- ✅ Automatic cleanup for product and inventory images
+- ✅ SuperAdmin can update user profile images
+- ✅ Images auto-deleted when records are deleted
+- ✅ Cloudinary public_id tracking for reliable deletion
+- ✅ Non-blocking image operations (failures don't break core functions)

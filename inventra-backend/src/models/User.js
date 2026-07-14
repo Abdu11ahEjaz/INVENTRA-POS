@@ -54,6 +54,12 @@ const userSchema = new mongoose.Schema(
       default: null,
     },
 
+    // Store Cloudinary public_id for deletion
+    profileImagePublicId: {
+      type: String,
+      default: null,
+    },
+
     // Login tracking
     lastLogin: {
       type: Date,

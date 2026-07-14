@@ -8,10 +8,13 @@ services:
       - key: NODE_ENV
         value: production
 
-  - type: static
-    name: inventra-frontend
-    buildCommand: "cd inventra-frontend && npm install && npm run build"
-    staticPublicPath: dist
-    routes:
-      - path: /*
-        destination: /index.html
+  # Frontend deployment moved to Vercel
+  # Uncomment below if switching back to Render for frontend deployment
+  #
+  # - type: static
+  #   name: inventra-frontend
+  #   buildCommand: "cd inventra-frontend && npm install && npm run build"
+  #   staticPublicPath: dist
+  #   routes:
+  #     - path: /*
+  #       destination: /index.html

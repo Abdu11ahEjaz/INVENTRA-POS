@@ -338,13 +338,25 @@ export const updateProfileImage = asyncHandler(async (req, res) => {
   }
 
   try {
-    // Import cloudinary upload utility
-    const { uploadImageToCloudinary } =
+    // Import cloudinary utilities
+    const { uploadImageToCloudinary, deleteImageFromCloudinary } =
       await import("../utils/cloudinaryUpload.js");
 
-    const imageUrl = await uploadImageToCloudinary(req.file, "user_profiles");
+    // Delete old profile image from Cloudinary if it exists
+    if (user.profileImagePublicId) {
+      try {
+        await deleteImageFromCloudinary(user.profileImagePublicId);
+      } catch (deleteErr) {
+        console.error("Failed to delete old profile image from Cloudinary:", deleteErr.message);
+        // Continue - don't fail the upload if deletion fails
+      }
+    }
 
-    user.profileImage = imageUrl;
+    // Upload new image
+    const { url, public_id } = await uploadImageToCloudinary(req.file, "user_profiles");
+
+    user.profileImage = url;
+    user.profileImagePublicId = public_id;
     await user.save();
 
     // Log update

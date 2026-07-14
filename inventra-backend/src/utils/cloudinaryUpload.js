@@ -1,6 +1,11 @@
 import cloudinary from "cloudinary";
 
-// Configure Cloudinary (already setup in config/cloudinary.js, but we import here for direct use)
+/**
+ * Upload image to Cloudinary and return URL + public_id for tracking
+ * @param {Object} file - multer file object (has buffer or path)
+ * @param {string} folder - Cloudinary folder name
+ * @returns {Promise<{url: string, public_id: string}>}
+ */
 const uploadImageToCloudinary = async (file, folder = "general") => {
   try {
     // file comes from multer middleware
@@ -14,7 +19,10 @@ const uploadImageToCloudinary = async (file, folder = "general") => {
         },
         (error, result) => {
           if (error) reject(error);
-          else resolve(result.secure_url);
+          else resolve({
+            url: result.secure_url,
+            public_id: result.public_id,
+          });
         }
       );
 
@@ -37,4 +45,18 @@ const uploadImageToCloudinary = async (file, folder = "general") => {
   }
 };
 
-export { uploadImageToCloudinary };
+/**
+ * Delete image from Cloudinary by public_id
+ * @param {string} public_id - Cloudinary public_id
+ */
+const deleteImageFromCloudinary = async (public_id) => {
+  if (!public_id) return;
+  try {
+    await cloudinary.v2.uploader.destroy(public_id);
+  } catch (err) {
+    console.error("❌ Cloudinary delete error:", err);
+    // Don't throw - continue even if delete fails
+  }
+};
+
+export { uploadImageToCloudinary, deleteImageFromCloudinary };

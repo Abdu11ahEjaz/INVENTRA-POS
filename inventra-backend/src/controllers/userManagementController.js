@@ -3,7 +3,7 @@ import User from "../models/User.js";
 import Session from "../models/Session.js";
 import { sendWelcomeEmail } from "../services/emailService.js";
 import { logAudit } from "../utils/auditLogger.js";
-import { uploadImageToCloudinary } from "../utils/cloudinaryUpload.js";
+import { uploadImageToCloudinary, deleteImageFromCloudinary } from "../utils/cloudinaryUpload.js";
 
 const getClientIP = (req) =>
   req.headers["x-forwarded-for"]?.split(",")[0].trim() ||
@@ -119,11 +119,14 @@ export const createUser = asyncHandler(async (req, res) => {
 
   try {
     let profileImageUrl = null;
+    let profileImagePublicId = null;
 
     // Upload profile image if provided
     if (req.file) {
       try {
-        profileImageUrl = await uploadImageToCloudinary(req.file, "user_profiles");
+        const { url, public_id } = await uploadImageToCloudinary(req.file, "user_profiles");
+        profileImageUrl = url;
+        profileImagePublicId = public_id;
       } catch (uploadErr) {
         // Don't fail user creation if image upload fails
       }
@@ -139,6 +142,7 @@ export const createUser = asyncHandler(async (req, res) => {
       department: department?.trim() || "",
       status: status || "Active",
       profileImage: profileImageUrl,
+      profileImagePublicId: profileImagePublicId,
     });
 
     // Log user creation
@@ -235,6 +239,29 @@ export const updateUser = asyncHandler(async (req, res) => {
     user.status = status;
   }
 
+  // Handle profile image upload if provided
+  if (req.file) {
+    try {
+      // Delete old profile image from Cloudinary if it exists
+      if (user.profileImagePublicId) {
+        try {
+          await deleteImageFromCloudinary(user.profileImagePublicId);
+        } catch (deleteErr) {
+          console.error("Failed to delete old profile image from Cloudinary:", deleteErr.message);
+          // Continue - don't fail the upload if deletion fails
+        }
+      }
+
+      // Upload new image
+      const { url, public_id } = await uploadImageToCloudinary(req.file, "user_profiles");
+      user.profileImage = url;
+      user.profileImagePublicId = public_id;
+    } catch (uploadErr) {
+      // Don't fail user update if image upload fails
+      console.error("Failed to upload profile image:", uploadErr.message);
+    }
+  }
+
   await user.save();
 
   // Log update
@@ -242,7 +269,7 @@ export const updateUser = asyncHandler(async (req, res) => {
     action: "USER_UPDATED",
     performedBy: req.user._id,
     targetUser: user._id,
-    details: "User information updated",
+    details: "User information updated" + (req.file ? " (with profile image)" : ""),
     ipAddress,
     userAgent: req.headers["user-agent"],
     oldValues,
@@ -404,6 +431,16 @@ export const deleteUser = asyncHandler(async (req, res) => {
     if (adminCount <= 1) {
       res.status(400);
       throw new Error("Cannot delete the last Admin user");
+    }
+  }
+
+  // Delete profile image from Cloudinary if it exists
+  if (user.profileImagePublicId) {
+    try {
+      await deleteImageFromCloudinary(user.profileImagePublicId);
+    } catch (deleteErr) {
+      console.error("Failed to delete profile image from Cloudinary:", deleteErr.message);
+      // Continue - don't fail user deletion if image deletion fails
     }
   }
 

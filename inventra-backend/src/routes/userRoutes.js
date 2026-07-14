@@ -28,7 +28,7 @@ router.route("/")
 // Get, update, or delete a specific user
 router.route("/:id")
   .get(getUserById)
-  .put(updateUser)
+  .put(uploadProfileImage, updateUser)
   .delete(deleteUser);
 
 // Update user status (Active/Inactive/Suspended)
